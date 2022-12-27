@@ -2,3 +2,5 @@
 
 keys.py
 Package/aws_keys.py
+mainApp/__pycache__/
+Package/__pycache__/

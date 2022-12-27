@@ -1,0 +1,1 @@
+This project is a web app for users to enter a video stream url, and their phone number. The script will monitor the video and notify the user using sms, and update the alerts on their dashboard.
