@@ -1,0 +1,101 @@
+{% extends 'mainApp/main.html' %}
+
+
+{% block title %}Dashboard{% endblock title %}
+    
+
+{% block navbar %}
+<nav class="navbar navbar-expand-lg navbar-dark" style="background-color: #1C1C2B;">
+  <div class="container-fluid">
+    <a class="navbar-brand" href="{% url 'Alerts' %}">Dashboard</a>
+    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+      <span class="navbar-toggler-icon"></span>
+    </button>
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+      <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+        <li class="nav-item">
+          <a class="nav-link active" aria-current="page" href="{% url 'Package Detection' %}">Package Detection</a>
+        </li>
+      </ul>
+      <li class="nav-item d-flex">
+        <a class="nav-link active" aria-current="page" href="{% url 'Logout' %}" style="color:white;">Logout</a>
+      </li>
+    </div>
+  </div>
+</nav>
+{% endblock navbar %}
+    
+
+{% block content %}
+
+
+
+{% if request.user.is_authenticated %}
+<p>Welcome {{request.user}}</p>
+{% endif %}
+
+
+
+<hr>
+<h2>Dashboard</h2>
+
+<table class="table" style="color:white;">
+    <thead>
+        <tr>
+            <th scope="col">Status</th>
+            <th scope="col">Date</th>
+            <th scope="col">Packages Detected</th>
+            <th></th>
+            <th></th>
+        </tr>
+    </thead>
+    
+    <tbody>
+
+    {% for Alert in Alerts %}
+    
+    {% if Alert.status == 'Object Detected' %}
+    <tr style="background-color: #275F4B;">
+        <td>{{ Alert.status }}</td>
+        <td>{{ Alert.date }}</td>
+        <td>{{ Alert.num_packages }}</td>
+        <td> <a href="{{ Alert.image.url }}" download><i class="fa-solid fa-cloud-arrow-down" style="color:#4deda1"></i></a></td>
+        <td> <a href="{% url 'Delete' Alert.id %}"><i class="fa-solid fa-trash-can" style="color:#8b0000; "></i></i></a> </td>
+    </tr>
+    {% elif Alert.status == 'Object Removed' %}
+    <tr>
+      <td>{{ Alert.status }}</td>
+      <td>{{ Alert.date }}</td>
+      <td>{{ Alert.num_packages }}</td>
+      <td> <a href="{{ Alert.image.url }}" download target="_blank" rel="noopener noreferrer"><i class="fa-solid fa-cloud-arrow-down" style="color:#4deda1"></i></a></td>
+      <td> <a href="{% url 'Delete' Alert.id %}"><i class="fa-solid fa-trash-can" style="color:#8b0000"></i></i></a> </td>
+    </tr>
+    {% endif %}  
+    {% empty  %}
+    <h4>No Alerts</h4>
+    {% endfor %}
+    
+    </tbody>
+        
+</table>
+
+<div>
+    Page {{ page_obj.number }} of {{ page_obj.paginator.num_pages }}
+</div>
+
+<ul>
+    
+    {% if page_obj.has_previous %}
+    <li> <a href="?page=1"><i class="fa-solid fa-angles-left"></i> First</a> </li>
+    <li><a href="?page={{ page_obj.previous_page_number }}"><i class="fa-solid fa-angle-left"></i> Previous</a> </li>
+    {% endif %}
+
+    {% if page_obj.has_next %}
+    <li> <a href="?page={{ page_obj.next_page_number }}">Next <i class="fa-solid fa-angle-right"></i></a> </li>
+    <li> <a href="?page={{ page_obj.paginator.num_pages }}">Last <i class="fa-solid fa-angles-right"></i></a> </li>
+    {% endif %}
+        
+</ul>
+
+{% endblock content %}
+    

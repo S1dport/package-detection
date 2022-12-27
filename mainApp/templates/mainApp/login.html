@@ -1,0 +1,23 @@
+{% extends 'mainApp/main.html' %}
+
+
+{% block title %}Login{% endblock title %}
+
+
+{% block content %}
+
+<h2>Login</h2>
+
+<form method="POST">
+    {% csrf_token %}
+    {{ form.as_p }}
+    <input type="submit"value='Login' class="rounded-2" style="margin-bottom: 10px;">
+</form>
+
+<p>No account? <a style="color:white;"href="{% url 'Register' %}">Register</a> </p>
+
+{% endblock content %}
+
+
+
+    

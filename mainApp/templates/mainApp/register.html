@@ -1,0 +1,18 @@
+{% extends 'mainApp/main.html' %}
+{% block title %}Register{% endblock title %}
+
+
+{% block content %}
+
+<h2>Register</h2>
+
+<form method="POST" >
+{% csrf_token %}
+{{form.as_p}}
+</form>
+
+
+<p>Already have an account? <a style="color:white;" href="{% url 'Login' %}">Login</a> </p>
+{% endblock content %}
+    
+
