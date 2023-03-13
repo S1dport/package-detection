@@ -12,7 +12,7 @@ https://docs.djangoproject.com/en/4.1/ref/settings/
 
 from pathlib import Path
 import os
-from .aws_keys import KEY_ID, SECRET_ACCESS_KEY
+from .aws_keys import KEY_ID, SECRET_ACCESS_KEY, DJANGO_SECRET_KEY, RDS_USER, RDS_PASSWORD, RDS_HOST
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
 
@@ -21,12 +21,12 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 # See https://docs.djangoproject.com/en/4.1/howto/deployment/checklist/
 
 # SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = "django-insecure-fo+cxf4=*2#l2a40pmec9u*c-t8sgi3y#ly4(kuy#f9zun97u*"
+SECRET_KEY = DJANGO_SECRET_KEY
 
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ['*']
 
 
 # Application definition
@@ -79,11 +79,11 @@ WSGI_APPLICATION = "Package.wsgi.application"
 DATABASES = {
     "default": {
         "ENGINE": "django.db.backends.postgresql",
-        "NAME": 'Package_Detection',
-        'USER' : 'postgres',
-        'PASSWORD': 'Subash123',
-        'HOST': 'localhost',
-        'PORT': '6517',
+        "NAME": 'ebdb',
+        'USER' : RDS_USER,
+        'PASSWORD': RDS_PASSWORD,
+        'HOST': RDS_HOST,
+        'PORT': '5432',
     }
 }
 

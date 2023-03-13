@@ -117,7 +117,7 @@ def package_detection(request):
                     break
 
                 # check every 5 seconds
-                if frame_count % (fps*5) == 0:
+                if frame_count % (fps) == 0:
                     predictions = model.predict(frame).json()
                     detections = len(predictions['predictions'])
 
