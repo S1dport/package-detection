@@ -5,7 +5,6 @@ certifi==2021.5.30
 chardet==4.0.0
 charset-normalizer==3.1.0
 colorama==0.4.6
-contourpy==1.0.7
 cycler==0.10.0
 Django==4.1.4
 django-storages==1.13.2
@@ -20,7 +19,7 @@ numpy==1.21.5
 opencv-python-headless==4.6.0.66
 packaging==23.0
 Pillow==9.4.0
-psycopg2==2.9.5
+psycopg2-binary==2.9.5
 PyJWT==2.6.0
 pyparsing==2.4.7
 python-dateutil==2.8.2

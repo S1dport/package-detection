@@ -1,8 +1,6 @@
-# api keys
-
-keys.py
-Package/aws_keys.py
+.env
 mainApp/__pycache__/
+mainApp/migrations/
 Package/__pycache__/
 myDjangoEnv
 

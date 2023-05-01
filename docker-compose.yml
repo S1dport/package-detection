@@ -1,0 +1,19 @@
+version: '3'
+
+services:
+  web:
+    build: .
+    ports:
+      - "8000:8000"
+    env_file:
+      - .env
+    depends_on:
+      - db
+  db:
+    image: postgres:12
+    environment:
+      POSTGRES_USER: ${RDS_USER}
+      POSTGRES_PASSWORD: ${RDS_PASSWORD}
+      POSTGRES_DB: ebdb
+    ports:
+      - "5432:5432"

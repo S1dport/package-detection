@@ -14,15 +14,20 @@ from django.core.paginator import Paginator
 from django.core.files.base import ContentFile
 from django.conf import settings
 
+import os
+from pathlib import Path
+from dotenv import load_dotenv
+
 from mainApp.models import Alert
 
 import cv2
 import numpy as np
 from datetime import datetime
 from twilio.rest import Client
-from . import keys
 from roboflow import Roboflow
 from .forms import PackageDetectionForm
+
+load_dotenv()
 
 
 
@@ -94,12 +99,12 @@ def package_detection(request):
                 capture = False    
 
             #twilio api keys
-            account_sid = keys.twilio_account_sid
-            auth_token = keys.twilio_auth_token
+            account_sid = os.environ.get('twilio_account_sid')
+            auth_token = os.environ.get('twilio_auth_token') 
             client = Client(account_sid, auth_token)
 
             #roboflow api keys
-            rf = Roboflow(api_key=keys.Roboflow_api_key)
+            rf = Roboflow(api_key=os.environ.get('Roboflow_api_key'))
             project = rf.project("packages-v4")
             model = project.version(6).model
 
@@ -116,7 +121,7 @@ def package_detection(request):
                 if not np.all(ret):
                     break
 
-                # check every 5 seconds
+                # check every second
                 if frame_count % (fps) == 0:
                     predictions = model.predict(frame).json()
                     detections = len(predictions['predictions'])

@@ -1,0 +1,7 @@
+.env
+.git
+mainApp/__pycache__/
+mainApp/migrations/
+Package/__pycache__/
+myDjangoEnv
+
